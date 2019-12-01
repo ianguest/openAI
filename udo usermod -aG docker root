@@ -1,0 +1,19 @@
+[0;1;32m●[0m docker.service - Docker Application Container Engine
+   Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+   Active: [0;1;32mactive (running)[0m since Sat 2019-11-30 16:13:56 SAST; 37s ago
+     Docs: https://docs.docker.com
+ Main PID: 26924 (dockerd)
+    Tasks: 13
+   CGroup: /system.slice/docker.service
+           └─26924 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Nov 30 16:13:55 ian-virtual-machine dockerd[26924]: time="2019-11-30T16:13:55.732444047+02:00" level=warning msg="Your kernel does not support cgroup rt runtime"
+Nov 30 16:13:55 ian-virtual-machine dockerd[26924]: time="2019-11-30T16:13:55.732463982+02:00" level=warning msg="Your kernel does not support cgroup blkio weight"
+Nov 30 16:13:55 ian-virtual-machine dockerd[26924]: time="2019-11-30T16:13:55.732471306+02:00" level=warning msg="Your kernel does not support cgroup blkio weight_device"
+Nov 30 16:13:55 ian-virtual-machine dockerd[26924]: time="2019-11-30T16:13:55.732769673+02:00" level=info msg="Loading containers: start."
+Nov 30 16:13:55 ian-virtual-machine dockerd[26924]: time="2019-11-30T16:13:55.925152588+02:00" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16. Daemon option --bip can be used to set a preferred IP address"
+Nov 30 16:13:56 ian-virtual-machine dockerd[26924]: time="2019-11-30T16:13:56.038442084+02:00" level=info msg="Loading containers: done."
+Nov 30 16:13:56 ian-virtual-machine dockerd[26924]: time="2019-11-30T16:13:56.142988636+02:00" level=info msg="Docker daemon" commit=633a0ea838 graphdriver(s)=overlay2 version=19.03.5
+Nov 30 16:13:56 ian-virtual-machine dockerd[26924]: time="2019-11-30T16:13:56.143118255+02:00" level=info msg="Daemon has completed initialization"
+Nov 30 16:13:56 ian-virtual-machine dockerd[26924]: time="2019-11-30T16:13:56.173262328+02:00" level=info msg="API listen on /var/run/docker.sock"
+Nov 30 16:13:56 ian-virtual-machine systemd[1]: Started Docker Application Container Engine.
