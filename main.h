@@ -9,7 +9,7 @@
 #include "./include/mqtt.h"
 
 
-#define SHOW_GRAPHICS
+//#define SHOW_GRAPHICS
 
 #define USE_YOLO
 

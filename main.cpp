@@ -2,6 +2,7 @@
 #include <vector>
 #include <unistd.h>
 #include <string.h>
+#include <time.h>
 // FFmpeg
 extern "C" {
 #include <libavformat/avformat.h>
@@ -63,7 +64,12 @@ int main(int argc, char* argv[])
 
     yolodet det;
 
-    mqtt mqttall("incoming","#",mqttsrcip,srcport);
+    srand(time(0));
+    int rn = rand();
+    char randomstring[100];
+    sprintf(randomstring,"in_%i",rn);
+
+    mqtt mqttall(randomstring,"#",mqttsrcip,srcport);
     mqttall.receive_queue(20,"Video");
 
     mqtt mqttvidout("outgoing",mqttdestip,destport);
@@ -113,7 +119,7 @@ int main(int argc, char* argv[])
             //    free(payload);
             //payload = NULL;
             // make a tempfile in ram
-            FILE *fid = fopen("/home/ian/temp.mp4","wb");
+            FILE *fid = fopen("temp.mp4","wb");
             if (fid != nullptr)
             {
                 fwrite(decodepayload,decodesize,1,fid);
@@ -134,7 +140,7 @@ int main(int argc, char* argv[])
 
 
 
-                ret = avformat_open_input(&inctx, "/home/ian/temp.mp4", nullptr, &options);
+                ret = avformat_open_input(&inctx, "temp.mp4", nullptr, &options);
                 //ret = avformat_open_input(&inctx, "rtsp://admin:Unclejack@192.168.0.4/Streaming/Channels/2?tcp", nullptr, nullptr);
                 //ret = avformat_open_input(&inctx, "garbage.mp4", nullptr, &options);
                 if (ret < 0)
