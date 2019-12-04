@@ -39,6 +39,7 @@ int main(int argc, char* argv[])
     char nostring = 0;
     int paylength;
     char *payload = NULL;
+    char *rawpayload = NULL;
     unsigned char *decodepayload = NULL;
     char *topic = NULL;
     base64 codec;
@@ -84,17 +85,20 @@ int main(int argc, char* argv[])
     #ifdef WRITE_CONSEC_MP4_FILES
                 VideoWriter writer;
 #endif
-
+    int payloadsize;
     while (1)
     {
         paylength = mqttall.get_next_payload_size();
         if (paylength > 0)
         {
-            int payloadsize;
+
             if (payload != NULL)
                 free(payload);
+            if (rawpayload != NULL)
+                free(rawpayload);
             payloadsize = mqttall.get_next_payload_size();
             payload = ( char *)malloc(payloadsize+1);
+            rawpayload = ( char *)malloc(payloadsize);
             if (decodepayload != NULL)
                 free(decodepayload);
             decodepayload = (unsigned char *)malloc(payloadsize+1);
@@ -102,6 +106,7 @@ int main(int argc, char* argv[])
                 free(topic);
             topic = (char *)malloc(mqttall.get_next_topic_size()+1);
             mqttall.pop_payload(payload,topic);
+            memcpy(rawpayload,payload,payloadsize);
             payload[payloadsize] = 0;
             // the payload contains video - need to load it from json
             char *start = (char *)strstr(payload,"video\":\"");
@@ -338,12 +343,12 @@ next_packet:
                 if (type == 1)
                 {
                     std::cout << "HUMAN: CONFIDENCE :" << highconfidence << endl;
-                    mqttvidout.send_message(topic,payload,payloadsize);
+                    mqttvidout.send_message(topic,rawpayload,payloadsize);
                 }
                 if (type == 2)
                 {
                     std::cout << "VEHICLE: CONFIDENCE :" << highconfidence << endl;
-                    mqttvidout.send_message(topic,payload,payloadsize);
+                    mqttvidout.send_message(topic,rawpayload,payloadsize);
                 }
 
 
