@@ -345,10 +345,17 @@ next_packet:
                     std::cout << "HUMAN: CONFIDENCE :" << highconfidence << endl;
                     mqttvidout.send_message(topic,rawpayload,payloadsize);
                 }
-                if (type == 2)
+                else if (type == 2)
                 {
                     std::cout << "VEHICLE: CONFIDENCE :" << highconfidence << endl;
                     mqttvidout.send_message(topic,rawpayload,payloadsize);
+                }
+                else
+                {
+                    char newtopic[100];
+                    sprintf(newtopic,"%snot",topic);
+                    mqttvidout.send_message(newtopic,rawpayload,payloadsize);
+
                 }
 
 
